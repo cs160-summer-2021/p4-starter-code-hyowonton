@@ -11,12 +11,16 @@
     <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
 
     <style type="text/css">
+        #myCanvas {
+            width: 100vw;
+            height: 100vh;
+        }
     </style>
 
 </head>
 <body>
     <!-- You may change the dimensions of this canvas -->
-    <canvas id="myCanvas" width="750px" height="750px"></canvas>
+    <canvas id="myCanvas"></canvas>
 </body>
 <script>
 
@@ -27,6 +31,8 @@
     var path = new paper.Path();
     var uid = Date.now() % 10000;
     path.strokeColor = "red";
+    var dict = {};
+    var start;
 
     // getting the URL (you may want to use for Exercise 3)
     var url = window.location.href;
@@ -34,16 +40,46 @@
     var socket = new WebSocket(
         'ws://' + window.location.host + '/ws/draw');
 
-    tool.onMouseMove = function(event) { //http://paperjs.org/reference/tool/ path examples
+    tool.onMouseDown = function(event) {
+    // Create a new path every time the mouse is clicked
+        path = new paper.Path();
+        start = true;
+
+    }
+
+    tool.onMouseDrag = function(event) { //http://paperjs.org/reference/tool/ path examples
+       if (!(uid in dict)) {
+            dict[uid] = Math.floor(Math.random()*16777215).toString(16);
+       }
+       path.strokeColor = dict[uid];
        path.add(event.point);
        // You may need to add code here if you want to pass any other information.
-       socket.send("{\"x\" : " + event.point.x + ", \"y\" : " + event.point.y + ", \"uid\" : " + uid + "}" );
+       socket.send("{\"x\" : " + event.point.x + ", \"y\" : " + event.point.y + ", \"uid\" : " + uid + ", \"dict\" : " + JSON.stringify(dict[uid]) + ", \"start\" : " + JSON.stringify(start) + "}" );
+       start = false;
     }
 
     socket.onmessage = function(receivedMessage) {
         var received = JSON.parse(receivedMessage.data);
         console.log("Received: " + JSON.stringify(received));
         // You will probably want to add some code here to draw more lines.
+        if (received.start == true) {
+            path = new paper.Path();
+        }
+        var x = received.x;
+        var y = received.y;
+        var point = new paper.Point(x, y);
+        path.strokeColor = received.dict;
+        var regex = new RegExp("large");
+        if (received.uid != uid && url.match(regex)){
+            path.add(point);
+        }
+
+        //1c
+        /*if (received.uid != uid && url.match(regex)){
+            path.add(point);
+        }
+        */
+
     }
 
     socket.onclose = function(e) {
