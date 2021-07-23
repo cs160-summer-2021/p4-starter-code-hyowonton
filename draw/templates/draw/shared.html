@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>P4 Drawing</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
+
+    <style type="text/css">
+        #home{
+            height: 100vh;
+            width:  100vw;
+            background-color: black;
+        }
+
+        .thirds {
+            height: 100%;
+            width: 33.33333333333333333333%;
+            background-color: darkred;
+            border-style: solid;
+            border-color: wheat;
+            float: left;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <!-- You may change the dimensions of this canvas -->
+    <div id = 'home'>
+        <div class = 'thirds'>
+            
+        </div>
+        <div class = 'thirds'>
+            
+        </div>
+        <div class = 'thirds'>
+            
+        </div>
+    </div>
+    
+</body>
+<script>
+    // getting the URL (you may want to use for Exercise 3)
+    var url = window.location.href;
+
+    var socket = new WebSocket(
+        'ws://' + window.location.host + '/ws/draw/');
+
+    socket.onmessage = function(receivedMessage) {
+
+    }
+
+    socket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+</script>
+</html>

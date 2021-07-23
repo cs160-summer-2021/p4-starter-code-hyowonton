@@ -8,3 +8,12 @@ def room(request, room_name):
     return render(request, 'draw/room.html', {
         'room_name': room_name
     })
+
+def phone(request):
+    return render(request, 'draw/phone.html')
+
+def shared(request):
+    return render(request, 'draw/shared.html')
+
+def submitted(request):
+    return render(request, 'draw/submitted.html')

@@ -1,0 +1,334 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>P4 Drawing</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+
+    <style type="text/css">
+        #phone {
+            height: 100vh;
+            width: 34vw;
+            background-color: black;
+            margin: auto;
+            border-radius: 19px;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+        #phonescreen{
+            height: 90vh;
+            width: 33vw;
+            margin: auto;
+            margin-top: 5vh;
+            overflow-y: scroll;
+            border: 2px;
+            border-style: solid;
+            position: relative;
+
+        }
+
+        #title {
+            text-align: center;
+            background-color: crimson;
+            height: 8%;
+            width: 100%;
+            font-size: 28px;
+            line-height: 150%;
+            color: whitesmoke;
+            margin: auto;
+            font-family: "Gloria Hallelujah";
+        }
+
+        #timer {
+            background-image: url("https://cdn.compsci.rocks/wp-content/uploads/2018/05/google-timer.png");
+            background-size: cover;
+            height: 25%;
+            width:  100%;
+            border: 2px;
+            border-style: solid;
+            border-color: whitesmoke;
+            margin: auto;
+        }
+
+        .label {
+            text-align: center;
+            height: 5%;
+            width: 100%;
+            background-color: greenyellow;
+            margin: auto;
+            font-family: "Gloria Hallelujah";
+            border-color: seagreen;
+            border-style: solid;
+        }
+
+        .options {
+            height: 15%;
+            width: 100%;
+            background-color: ivory;
+            margin: auto;
+        }
+
+        .typeable {
+            padding-left: 1%;
+            border: 1px;
+            margin: auto;
+            overflow-y: scroll;
+
+        }
+
+        .fifth{
+            width: 20%;
+            height: 100%;
+            margin: auto;
+            float: left;
+            background-color: saddlebrown;
+            border: 2px;
+            border-style: solid;
+            position: relative;
+        }
+
+        .pick {
+            height: 85%;
+            width: 85%;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-family: "Gloria Hallelujah";
+        }
+
+        #submit {
+            height: 10%;
+            width:  100%;
+            background-color: yellow;
+            margin: auto;
+            position: relative;
+            border-style: solid;
+            border-color: seagreen;
+        }
+
+        #complete {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background-color: green;
+            color: whitesmoke;
+            font-family: "Gloria Hallelujah";
+            width: 25%;
+            height: 60%;
+
+        }
+
+        .split {
+            float: left;
+            border-style: solid;
+            border-color: black;
+        }
+
+        .time {
+            text-align: center;
+            background-color: navajowhite;
+            line-height: 120%;
+            font-family: "Gloria Hallelujah";
+        }
+
+        .input {
+            width: 50%;
+            height: 90%;
+            margin: auto;
+            background-color: whitesmoke;
+            margin-top: 2%;
+            text-align: center;
+            font-size: 300%;
+            line-height: 130%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+
+        }
+
+        .border {
+           background-color: black;
+           border-style: solid;
+           border-color: black;
+        }
+
+    </style>
+
+</head>
+<body>
+    <!-- You may change the dimensions of this canvas -->
+    <div id = 'phone'>
+        <div id = 'phonescreen'>
+            <div id = 'title'>
+                Assignment 4
+            </div>
+            <div id = 'timer'>
+            </div>
+            <div class = 'label'>
+                Difficulty
+            </div>
+            <div class = 'options'>
+                <div class = 'fifth' id = 'fir'>
+                    <button class = 'pick' id = 'one'>
+                        1
+                    </button>
+                </div>
+                <div class = 'fifth' id = 'sec'>
+                    <button class = 'pick' id = 'two'>
+                        2
+                    </button>
+                </div>
+                <div class = 'fifth' id = 'thir'>
+                    <button class = 'pick' id = 'three'>
+                        3
+                    </button>
+                </div>
+                <div class = 'fifth' id = 'fou'>
+                    <button class = 'pick' id = 'four'>
+                        4
+                    </button>
+                </div>
+                <div class = 'fifth' id = 'fift'>
+                    <button class = 'pick' id = 'five'>
+                        5
+                    </button>
+                </div>
+            
+            </div>
+            <div class = 'label'>
+                Time Taken
+            </div>
+            <div class = 'options'>
+                <div class = 'split w-50 h-100 border'>
+                    <div class = 'split w-100 h-25 time'>
+                        HR
+                    </div>
+                    <div class = 'split w-100 h-75'>
+                        <div class = 'input' contentEditable="true"  id = 'hour'>
+                            0
+                        </div>
+                    </div>
+                </div>
+                <div class = 'split w-50 h-100 border'>
+                    <div class = 'split w-100 h-25 time'>
+                        MIN
+                    </div>
+                    <div class = 'split w-100 h-75'>
+                        <div class = 'input' contentEditable="true"  id = 'min'>
+                            0
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = 'label'>
+                Feedback
+            </div>
+            <div class = 'options typeable' contentEditable="true" id = 'feedback'>
+                Type Here...
+            </div>
+            <div class = 'label'>
+                Tips
+            </div>
+            <div class = 'options typeable' contentEditable="true" id = 'tips'>
+                Type Here...
+            </div>
+
+            <div id = 'submit'>
+                <button id = 'complete'>
+                        Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    // getting the URL (you may want to use for Exercise 3)
+    var socket = new WebSocket(
+        'ws://' + window.location.host + '/ws/draw/');
+
+    var score;
+    var hour;
+    var minute
+    var feedback;
+    var tips;
+
+    $('#one').click(function(){
+        $("#fir").css("background-color", "none" );
+        $("#sec, #thir, #fou, #fift").css("background-color", "saddlebrown");
+        $("#fir").css("background-color", "yellow");
+        score = 1;
+    })
+
+    $('#two').click(function(){
+        $("#sec").css("background-color", "none" );
+        $("#fir, #thir, #fou, #fift").css("background-color", "saddlebrown");
+        $("#sec").css("background-color", "yellow");
+        score = 2;
+    })
+
+    $('#three').click(function(){
+        $("#thir").css("background-color", "none" );
+        $("#sec, #fir, #fou, #fift").css("background-color", "saddlebrown");
+        $("#thir").css("background-color", "yellow");
+        score = 3;
+    })
+
+    $('#four').click(function(){
+        $("#fou").css("background-color", "none" );
+        $("#sec, #thir, #fir, #fift").css("background-color", "saddlebrown");
+        $("#fou").css("background-color", "yellow");
+        score = 4;
+    })
+
+    $('#five').click(function(){
+        $("#fift").css("background-color", "none" );
+        $("#sec, #thir, #fou, #fir").css("background-color", "saddlebrown");
+        $("#fift").css("background-color", "yellow");
+        score = 5;
+    })
+
+    function saveEdits(id) {
+        //get the editable element
+        var editElem = document.getElementById(id);
+        //get the edited element content
+        var userVersion = editElem.innerHTML;
+        //save the content to local storage
+        localStorage.userEdits = userVersion;
+    }
+
+    $('#complete').click(function(){
+        saveEdits('hour');
+        saveEdits('min');
+        saveEdits('feedback');
+        saveEdits('tips');
+        hour = document.getElementById('hour').innerHTML;
+        minute = document.getElementById('min').innerHTML;
+        feedback = document.getElementById('feedback').innerHTML;
+        tips = document.getElementById('tips').innerHTML;
+
+        socket.send("{\"hour\" : " + JSON.stringify(hour) + ", \"minute\" : " + JSON.stringify(minute) + ", \"feedback\" : " + JSON.stringify(feedback) + ", \"tips\" : " + JSON.stringify(tips) + "}" );
+
+        location.href = ("/draw/submitted");
+
+    })
+
+
+
+
+</script>
+</html>
