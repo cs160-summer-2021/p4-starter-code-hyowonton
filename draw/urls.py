@@ -9,5 +9,4 @@ urlpatterns = [
     path('phone', views.phone, name='phone'),
     path('shared', views.shared, name='shared'),
     path('submitted', views.submitted, name='submitted')
-
 ]
