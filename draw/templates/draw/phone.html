@@ -316,12 +316,20 @@
         saveEdits('min');
         saveEdits('feedback');
         saveEdits('tips');
-        hour = document.getElementById('hour').innerHTML;
-        minute = document.getElementById('min').innerHTML;
-        feedback = document.getElementById('feedback').innerHTML;
-        tips = document.getElementById('tips').innerHTML;
+        hour = parseInt(document.getElementById('hour').innerHTML.trim());
+        minute = parseInt(document.getElementById('min').innerHTML.trim());
+        feedback = document.getElementById('feedback').innerHTML.trim();
+        tips = document.getElementById('tips').innerHTML.trim();
 
-        socket.send("{\"hour\" : " + JSON.stringify(hour) + ", \"minute\" : " + JSON.stringify(minute) + ", \"feedback\" : " + JSON.stringify(feedback) + ", \"tips\" : " + JSON.stringify(tips) + "}" );
+        var data = {
+            score: score,
+            hour: hour,
+            minute: minute,
+            feedback: feedback,
+            tips: tips
+        };
+
+        socket.send(JSON.stringify(data));
 
         location.href = ("/draw/submitted");
 
