@@ -17,3 +17,9 @@ def shared(request):
 
 def submitted(request):
     return render(request, 'draw/submitted.html')
+
+def phone2(request):
+    return render(request, 'draw/phone2.html')
+
+def shared2(request):
+    return render(request, 'draw/shared2.html')

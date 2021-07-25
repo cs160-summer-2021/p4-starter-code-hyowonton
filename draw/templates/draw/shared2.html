@@ -164,7 +164,7 @@
                 Difficulty
             </div>
             <div id = 'avg2'>
-                Avg. : X / 5
+                Majority: ...
             </div>
             <div id = 'rest'>
                 <canvas id="secondChart" class = "w-100 h-100">
@@ -213,7 +213,7 @@
         }
     });
 
-    var otherxValues = ["1", "2", "3", "4", "5"];
+    var otherxValues = ["Basic", "Easy", "Medium", "Hard", "I'm Lost"];
     var otheryValues = [0, 0, 0, 0, 0];
     var barColors = ["red", "green","blue","orange","brown"];
 
@@ -246,7 +246,6 @@
         var tips = received.tips;
 
         total_time += time;
-        total_difficulty += difficulty;
 
         if (time <= 1) {
             yValues[0] += 1;
@@ -283,23 +282,35 @@
             }
         }
     });
-        if (difficulty == 1) {
+        if (difficulty == "Basic") {
             otheryValues[0] += 1;
         }
-        else if (difficulty == 2) {
+        else if (difficulty == "Easy") {
             otheryValues[1] += 1;
         }
-        else if (difficulty == 3) {
+        else if (difficulty == "Medium") {
             otheryValues[2] += 1;
         
         }
-        else if (difficulty == 4) {
+        else if (difficulty == "Hard") {
             otheryValues[3] += 1;
         
         }
         else {
             otheryValues[4] += 1;
         }
+
+
+        var index;
+        var max = 0;
+        for (let i = 0; i < 5; i++) {
+            if (otheryValues[i] > max) {
+                index = i;
+                max = otheryValues[i];
+            }
+        }
+
+
 
         new Chart("secondChart", {
         type: "bar",
@@ -319,7 +330,7 @@
         }
     });
         document.getElementById("avg").innerHTML = "Avg. : " +  Math.round(100 * (total_time / num_submits))/100 + " Hrs.";
-        document.getElementById("avg2").innerHTML = "Avg. : " +   Math.round(100 * (total_difficulty / num_submits))/100 +  " / 5";
+        document.getElementById("avg2").innerHTML = "Majority : " +  otherxValues[index];
 
         var div = document.createElement("div");
         div.style.width = "80%";
@@ -343,6 +354,7 @@
         document.getElementById("tiplist").appendChild(div);
 
         document.getElementById("tiplist").appendChild(document.createElement("br"));
+
 
     }
 

@@ -47,17 +47,6 @@
             font-family: "Gloria Hallelujah";
         }
 
-        #timer {
-            background-image: url("https://cdn.compsci.rocks/wp-content/uploads/2018/05/google-timer.png");
-            background-size: cover;
-            height: 25%;
-            width:  100%;
-            border: 2px;
-            border-style: solid;
-            border-color: whitesmoke;
-            margin: auto;
-        }
-
         .label {
             text-align: center;
             height: 5%;
@@ -176,35 +165,33 @@
             <div id = 'title'>
                 Assignment 4
             </div>
-            <div id = 'timer'>
-            </div>
             <div class = 'label'>
                 Difficulty
             </div>
             <div class = 'options'>
                 <div class = 'fifth' id = 'fir'>
                     <button class = 'pick' id = 'one'>
-                        1
+                        Basic
                     </button>
                 </div>
                 <div class = 'fifth' id = 'sec'>
                     <button class = 'pick' id = 'two'>
-                        2
+                        Easy
                     </button>
                 </div>
                 <div class = 'fifth' id = 'thir'>
                     <button class = 'pick' id = 'three'>
-                        3
+                        Medium
                     </button>
                 </div>
                 <div class = 'fifth' id = 'fou'>
                     <button class = 'pick' id = 'four'>
-                        4
+                        Hard
                     </button>
                 </div>
                 <div class = 'fifth' id = 'fift'>
                     <button class = 'pick' id = 'five'>
-                        5
+                        I'm Lost
                     </button>
                 </div>
             
@@ -271,35 +258,35 @@
         $("#fir").css("background-color", "none" );
         $("#sec, #thir, #fou, #fift").css("background-color", "saddlebrown");
         $("#fir").css("background-color", "yellow");
-        score = 1;
+        score = "Basic";
     })
 
     $('#two').click(function(){
         $("#sec").css("background-color", "none" );
         $("#fir, #thir, #fou, #fift").css("background-color", "saddlebrown");
         $("#sec").css("background-color", "yellow");
-        score = 2;
+        score = "Easy";
     })
 
     $('#three').click(function(){
         $("#thir").css("background-color", "none" );
         $("#sec, #fir, #fou, #fift").css("background-color", "saddlebrown");
         $("#thir").css("background-color", "yellow");
-        score = 3;
+        score = "Medium";
     })
 
     $('#four').click(function(){
         $("#fou").css("background-color", "none" );
         $("#sec, #thir, #fir, #fift").css("background-color", "saddlebrown");
         $("#fou").css("background-color", "yellow");
-        score = 4;
+        score = "Hard";
     })
 
     $('#five').click(function(){
         $("#fift").css("background-color", "none" );
         $("#sec, #thir, #fou, #fir").css("background-color", "saddlebrown");
         $("#fift").css("background-color", "yellow");
-        score = 5;
+        score = "I'm Lost";
     })
 
     function saveEdits(id) {
